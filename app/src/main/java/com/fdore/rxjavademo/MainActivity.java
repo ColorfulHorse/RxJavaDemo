@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         btnSubscribe = findViewById(R.id.btn_subscribe);
         btnDispose = findViewById(R.id.btn_dispose);
         btnSubscribe.setOnClickListener(v -> {
-            reply();
+            concat();
         });
         btnDispose.setOnClickListener(v -> {
             if (mDisposable != null && !mDisposable.isDisposed()){
@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 将两个Observable连接起来组成一个新的（按事件顺序）
+     * 将两个Observable连接起来组成一个新的（按事件流顺序）
      */
     private void concat(){
-        Observable<Long> ob1 = Observable.intervalRange(1, 3L, 1L, 0L, TimeUnit.SECONDS)
+        Observable<Long> ob1 = Observable.intervalRange(1, 3L, 1L, 1L, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(x -> Log.e("ob1", x.toString()));
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 将两个Observable连接起来组成一个新的（按事件顺序）
+     * 将两个Observable连接起来组成一个新的（按事件流顺序），延迟error到事件流完成后再发送
      */
     private void concatDelayError(){
         Observable<Integer> ob1 = Observable.<Integer>create(emitter -> {
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * 将两个Observable合并起来组成一个新的（不需要按事件顺序）
+     * 将两个Observable合并起来组成一个新的（不需要按事件流顺序）
      */
     private void merge(){
         Observable<Long> ob1 = Observable.intervalRange(1, 3, 0, 1, TimeUnit.SECONDS);

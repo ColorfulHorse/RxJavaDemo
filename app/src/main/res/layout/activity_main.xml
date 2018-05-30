@@ -7,10 +7,17 @@
     tools:context="com.fdore.rxjavademo.MainActivity">
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/btn_subscribe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
+        android:text="Subscribe"
         android:layout_centerInParent="true" />
 
+    <Button
+        android:id="@+id/btn_dispose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dispose"
+        android:layout_below="@id/btn_subscribe"
+        android:layout_centerInParent="true" />
 </RelativeLayout>
